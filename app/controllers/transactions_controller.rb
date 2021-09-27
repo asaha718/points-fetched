@@ -4,6 +4,7 @@ class TransactionsController < ApplicationController
   end
 
   def index
+    render json: Transaction.select(:name, "SUM(points) AS points").group(:name)
   end
 
   def spend
