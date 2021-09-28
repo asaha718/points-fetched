@@ -5,7 +5,6 @@ This application is using Ruby on Rails v6.1.4.1
 ## Setup
 * Clone repositiory
 * run `bundle exec install`
-* run `npm start` or `yarn start`
 * Create db - run `rails db:create` 
 * Create migrations - run `rails db:migrate`
 * Run server `rails s`
