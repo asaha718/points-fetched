@@ -1,24 +1,35 @@
-# README
+# Fetch Points Assignment README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This application is using Ruby on Rails v6.1.4.1
 
-Things you may want to cover:
+## Setup
+* Clone repositiory
+* run `bundle exec install`
+* run `npm start` or `yarn start`
+* Create db - run `rails db:create` 
+* Create migrations - run `rails db:migrate`
+* Run server `rails s`
 
-* Ruby version
+## API Calls
+* Open API platform (ex. Postman)
+* POST all transaction at `http://localhost:3000/transactions` one at a time. ex.
 
-* System dependencies
+```javascript 
+ {"transactions" :
+  {
+    "payer": "DANNON",
+    "points": 1000,
+    "timestamp": "2020-11-02T14:00:00Z"
+  }
+}
+```
 
-* Configuration
+* To spend desired points, go to `http://localhost:3000/transactions/spend` and POST. ex. 
+```javascript 
+{
+    "points" : 5000
+}
+```
+* To check on points GET at `http://localhost:3000/transactions`
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+This project was completed by Anug Saha. Please reach out if you have any questions. Thank you!
