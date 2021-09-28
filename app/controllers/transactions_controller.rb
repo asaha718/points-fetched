@@ -29,6 +29,6 @@ class TransactionsController < ApplicationController
   private
 
   def transactions_params
-    params.require(:transactions).permit(:payer, :points, :timestamp) #is there a way to mass incorporate say and point data?
+    params.require(:transactions).permit(:payer, :points, :timestamp)
   end
 end
