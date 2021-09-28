@@ -16,3 +16,399 @@ Migrating to CreateTransactions (20210925182749)
   [1m[36mTRANSACTION (28.3ms)[0m  [1m[36mcommit transaction[0m
   [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
   [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/transactions" for ::1 at 2021-09-27 19:12:09 -0400
+  [1m[35m (4.5ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by TransactionsController#create as */*
+  Parameters: {"transactions"=>[{"payer"=>"DANNON", "points"=>300, "timestamp"=>"2020-10-31T10:00:00Z"}, {"payer"=>"MILLER COORS", "points"=>10000, "timestamp"=>"2020-11-01T14:00:00Z"}, {"payer"=>"DANNON", "points"=>-200, "timestamp"=>"2020-10-31T15:00:00Z"}, {"payer"=>"UNILEVER", "points"=>200, "timestamp"=>"2020-10-31T11:00:00Z"}, {"payer"=>"DANNON", "points"=>1000, "timestamp"=>"2020-11-02T14:00:00Z"}], "transaction"=>{}}
+Completed 500 Internal Server Error in 17ms (ActiveRecord: 0.4ms | Allocations: 2910)
+
+
+  
+NoMethodError (undefined method `permit' for #<Array:0x0000561882e797f8>):
+  
+app/controllers/transactions_controller.rb:16:in `transactions_params'
+app/controllers/transactions_controller.rb:3:in `create'
+Started POST "/transactions" for ::1 at 2021-09-27 19:12:59 -0400
+Error occurred while parsing request parameters.
+Contents:
+
+{"transactions": 
+    {"payer": "DANNON", 
+    "points": 300, 
+    "timestamp": "2020-10-31T10:00:00Z"
+    }, 
+    {"payer": "MILLER COORS", 
+    "points": 10000, 
+    "timestamp": "2020-11-01T14:00:00Z"
+    }, 
+    {"payer": "DANNON", 
+    "points": -200, 
+    "timestamp": "2020-10-31T15:00:00Z"
+    }, 
+    {"payer": "UNILEVER",
+     "points": 200,
+      "timestamp": "2020-10-31T11:00:00Z"
+    }, 
+    {"payer": "DANNON", 
+    "points": 1000, 
+    "timestamp": "2020-11-02T14:00:00Z"
+    }
+}
+Processing by TransactionsController#create as */*
+Completed 400 Bad Request in 2ms (ActiveRecord: 0.0ms | Allocations: 835)
+
+
+  
+ActionDispatch::Http::Parameters::ParseError (765: unexpected token at '{"transactions": 
+    {"payer": "DANNON", 
+    "points": 300, 
+    "timestamp": "2020-10-31T10:00:00Z"
+    }, 
+    {"payer": "MILLER COORS", 
+    "points": 10000, 
+    "timestamp": "2020-11-01T14:00:00Z"
+    }, 
+    {"payer": "DANNON", 
+    "points": -200, 
+    "timestamp": "2020-10-31T15:00:00Z"
+    }, 
+    {"payer": "UNILEVER",
+     "points": 200,
+      "timestamp": "2020-10-31T11:00:00Z"
+    }, 
+    {"payer": "DANNON", 
+    "points": 1000, 
+    "timestamp": "2020-11-02T14:00:00Z"
+    }
+}'):
+  
+app/controllers/transactions_controller.rb:16:in `transactions_params'
+app/controllers/transactions_controller.rb:3:in `create'
+Started POST "/transactions" for ::1 at 2021-09-27 19:20:52 -0400
+Error occurred while parsing request parameters.
+Contents:
+
+{"payer": "DANNON", "points": 300,"timestamp": "2020-10-31T10:00:00Z"}, 
+{"payer": "MILLER COORS", "points": 10000, "timestamp": "2020-11-01T14:00:00Z"}, 
+{"payer": "DANNON", "points": -200,"timestamp": "2020-10-31T15:00:00Z"}, 
+{"payer": "UNILEVER", "points": 200,"timestamp": "2020-10-31T11:00:00Z"}, 
+{"payer": "DANNON", "points": 1000, "timestamp": "2020-11-02T14:00:00Z"}
+
+
+
+Processing by TransactionsController#create as */*
+Completed 400 Bad Request in 2ms (Allocations: 798)
+
+
+  
+ActionDispatch::Http::Parameters::ParseError (765: unexpected token at ', 
+{"payer": "MILLER COORS", "points": 10000, "timestamp": "2020-11-01T14:00:00Z"}, 
+{"payer": "DANNON", "points": -200,"timestamp": "2020-10-31T15:00:00Z"}, 
+{"payer": "UNILEVER", "points": 200,"timestamp": "2020-10-31T11:00:00Z"}, 
+{"payer": "DANNON", "points": 1000, "timestamp": "2020-11-02T14:00:00Z"}
+
+
+'):
+  
+app/controllers/transactions_controller.rb:16:in `transactions_params'
+app/controllers/transactions_controller.rb:3:in `create'
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mTransaction Load (2.6ms)[0m  [1m[34mSELECT "transactions".* FROM "transactions" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+Started POST "/transactions" for ::1 at 2021-09-27 19:29:12 -0400
+Processing by TransactionsController#create as */*
+  Parameters: {"payer"=>"DANNON", "points"=>300, "timestamp"=>"2020-10-31T10:00:00Z", "transaction"=>{"payer"=>"DANNON", "points"=>300, "timestamp"=>"2020-10-31T10:00:00Z"}}
+Completed 400 Bad Request in 2ms (Allocations: 563)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: transactions):
+  
+app/controllers/transactions_controller.rb:16:in `transactions_params'
+app/controllers/transactions_controller.rb:3:in `create'
+Started POST "/transactions" for ::1 at 2021-09-27 19:31:17 -0400
+Processing by TransactionsController#create as */*
+  Parameters: {"transactions"=>{"payer"=>"DANNON", "points"=>300, "timestamp"=>"2020-10-31T10:00:00Z"}, "transaction"=>{}}
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/transactions_controller.rb:3:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/transactions_controller.rb:3:in `create'
+  [1m[36mTransaction Create (2.6ms)[0m  [1m[32mINSERT INTO "transactions" ("payer", "points", "timestamp", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["payer", "DANNON"], ["points", 300], ["timestamp", "2020-10-31 10:00:00"], ["created_at", "2021-09-27 23:31:17.729322"], ["updated_at", "2021-09-27 23:31:17.729322"]]
+  ↳ app/controllers/transactions_controller.rb:3:in `create'
+  [1m[36mTRANSACTION (36.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/transactions_controller.rb:3:in `create'
+Completed 200 OK in 69ms (Views: 0.9ms | ActiveRecord: 40.2ms | Allocations: 9662)
+
+
+Started POST "/transactions" for ::1 at 2021-09-27 19:32:21 -0400
+Processing by TransactionsController#create as */*
+  Parameters: {"transactions"=>[{"payer"=>"MILLER COORS", "points"=>10000, "timestamp"=>"2020-11-01T14:00:00Z"}, {"payer"=>"DANNON", "points"=>-200, "timestamp"=>"2020-10-31T15:00:00Z"}, {"payer"=>"UNILEVER", "points"=>200, "timestamp"=>"2020-10-31T11:00:00Z"}, {"payer"=>"DANNON", "points"=>1000, "timestamp"=>"2020-11-02T14:00:00Z"}], "transaction"=>{}}
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 0.0ms | Allocations: 1425)
+
+
+  
+NoMethodError (undefined method `permit' for #<Array:0x0000561882fa9128>):
+  
+app/controllers/transactions_controller.rb:16:in `transactions_params'
+app/controllers/transactions_controller.rb:3:in `create'
+Started POST "/transactions" for ::1 at 2021-09-27 19:32:50 -0400
+Error occurred while parsing request parameters.
+Contents:
+
+{"transactions" :
+{
+    "payer": "MILLER COORS",
+    "points": 10000,
+    "timestamp": "2020-11-01T14:00:00Z"
+},
+{
+    "payer": "DANNON",
+    "points": -200,
+    "timestamp": "2020-10-31T15:00:00Z"
+},
+{
+    "payer": "UNILEVER",
+    "points": 200,
+    "timestamp": "2020-10-31T11:00:00Z"
+},
+{
+    "payer": "DANNON",
+    "points": 1000,
+    "timestamp": "2020-11-02T14:00:00Z"
+}
+
+}
+Processing by TransactionsController#create as */*
+Completed 400 Bad Request in 2ms (ActiveRecord: 0.0ms | Allocations: 798)
+
+
+  
+ActionDispatch::Http::Parameters::ParseError (765: unexpected token at '{"transactions" :
+{
+    "payer": "MILLER COORS",
+    "points": 10000,
+    "timestamp": "2020-11-01T14:00:00Z"
+},
+{
+    "payer": "DANNON",
+    "points": -200,
+    "timestamp": "2020-10-31T15:00:00Z"
+},
+{
+    "payer": "UNILEVER",
+    "points": 200,
+    "timestamp": "2020-10-31T11:00:00Z"
+},
+{
+    "payer": "DANNON",
+    "points": 1000,
+    "timestamp": "2020-11-02T14:00:00Z"
+}
+
+}'):
+  
+app/controllers/transactions_controller.rb:16:in `transactions_params'
+app/controllers/transactions_controller.rb:3:in `create'
+Started POST "/transactions" for ::1 at 2021-09-27 19:33:38 -0400
+Processing by TransactionsController#create as */*
+  Parameters: {"transactions"=>{"payer"=>"MILLER COORS", "points"=>10000, "timestamp"=>"2020-11-01T14:00:00Z"}, "transaction"=>{}}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/transactions_controller.rb:3:in `create'
+  [1m[36mTransaction Create (1.0ms)[0m  [1m[32mINSERT INTO "transactions" ("payer", "points", "timestamp", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["payer", "MILLER COORS"], ["points", 10000], ["timestamp", "2020-11-01 14:00:00"], ["created_at", "2021-09-27 23:33:38.137021"], ["updated_at", "2021-09-27 23:33:38.137021"]]
+  ↳ app/controllers/transactions_controller.rb:3:in `create'
+  [1m[36mTRANSACTION (18.7ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/transactions_controller.rb:3:in `create'
+Completed 200 OK in 35ms (Views: 0.6ms | ActiveRecord: 19.8ms | Allocations: 4851)
+
+
+Started POST "/transactions" for ::1 at 2021-09-27 19:34:32 -0400
+Processing by TransactionsController#create as */*
+  Parameters: {"transactions"=>{"payer"=>"DANNON", "points"=>-200, "timestamp"=>"2020-10-31T15:00:00Z"}, "transaction"=>{}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/transactions_controller.rb:3:in `create'
+  [1m[36mTransaction Create (0.5ms)[0m  [1m[32mINSERT INTO "transactions" ("payer", "points", "timestamp", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["payer", "DANNON"], ["points", -200], ["timestamp", "2020-10-31 15:00:00"], ["created_at", "2021-09-27 23:34:32.189192"], ["updated_at", "2021-09-27 23:34:32.189192"]]
+  ↳ app/controllers/transactions_controller.rb:3:in `create'
+  [1m[36mTRANSACTION (37.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/transactions_controller.rb:3:in `create'
+Completed 200 OK in 54ms (Views: 0.9ms | ActiveRecord: 38.3ms | Allocations: 4852)
+
+
+Started POST "/transactions" for ::1 at 2021-09-27 19:35:04 -0400
+Processing by TransactionsController#create as */*
+  Parameters: {"transactions"=>{"payer"=>"UNILEVER", "points"=>200, "timestamp"=>"2020-10-31T11:00:00Z"}, "transaction"=>{}}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/transactions_controller.rb:3:in `create'
+  [1m[36mTransaction Create (1.9ms)[0m  [1m[32mINSERT INTO "transactions" ("payer", "points", "timestamp", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["payer", "UNILEVER"], ["points", 200], ["timestamp", "2020-10-31 11:00:00"], ["created_at", "2021-09-27 23:35:04.622321"], ["updated_at", "2021-09-27 23:35:04.622321"]]
+  ↳ app/controllers/transactions_controller.rb:3:in `create'
+  [1m[36mTRANSACTION (21.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/transactions_controller.rb:3:in `create'
+Completed 200 OK in 38ms (Views: 0.5ms | ActiveRecord: 23.2ms | Allocations: 3285)
+
+
+Started GET "/transactions" for ::1 at 2021-09-27 19:35:11 -0400
+Processing by TransactionsController#index as */*
+  [1m[36mTransaction Load (0.2ms)[0m  [1m[34mSELECT "name", SUM(points) AS points FROM "transactions" GROUP BY "name"[0m
+  ↳ app/controllers/transactions_controller.rb:7:in `index'
+Completed 200 OK in 4ms (Views: 2.7ms | ActiveRecord: 0.2ms | Allocations: 1144)
+
+
+Started GET "/transactions" for ::1 at 2021-09-27 19:35:41 -0400
+Processing by TransactionsController#index as */*
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/transactions_controller.rb:7:in `index'
+  [1m[36mTransaction Load (0.3ms)[0m  [1m[34mSELECT "name", SUM(points) AS points FROM "transactions" GROUP BY "name"[0m
+  ↳ app/controllers/transactions_controller.rb:7:in `index'
+Completed 200 OK in 18ms (Views: 15.8ms | ActiveRecord: 1.6ms | Allocations: 6160)
+
+
+Started GET "/transaction" for ::1 at 2021-09-27 19:35:58 -0400
+  
+ActionController::RoutingError (No route matches [GET] "/transaction"):
+  
+Started GET "/transactions" for ::1 at 2021-09-27 19:36:05 -0400
+Processing by TransactionsController#index as */*
+  [1m[36mTransaction Load (0.3ms)[0m  [1m[34mSELECT "name", SUM(points) AS points FROM "transactions" GROUP BY "name"[0m
+  ↳ app/controllers/transactions_controller.rb:7:in `index'
+Completed 200 OK in 4ms (Views: 3.0ms | ActiveRecord: 0.3ms | Allocations: 991)
+
+
+Started GET "/transactions" for ::1 at 2021-09-27 19:36:28 -0400
+Processing by TransactionsController#index as */*
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/transactions_controller.rb:7:in `index'
+  [1m[36mTransaction Load (0.2ms)[0m  [1m[34mSELECT "transactions"."payer", SUM(points) AS points FROM "transactions" GROUP BY "transactions"."payer"[0m
+  ↳ app/controllers/transactions_controller.rb:7:in `index'
+Completed 200 OK in 18ms (Views: 15.7ms | ActiveRecord: 2.4ms | Allocations: 6066)
+
+
+Started GET "/transactions" for ::1 at 2021-09-27 19:37:19 -0400
+Processing by TransactionsController#index as */*
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/transactions_controller.rb:7:in `index'
+  [1m[36mTransaction Load (0.2ms)[0m  [1m[34mSELECT "transactions"."payer" FROM "transactions"[0m
+  ↳ app/controllers/transactions_controller.rb:7:in `index'
+Completed 200 OK in 24ms (Views: 22.1ms | ActiveRecord: 1.9ms | Allocations: 6236)
+
+
+Started GET "/transactions" for ::1 at 2021-09-27 19:37:43 -0400
+Processing by TransactionsController#index as */*
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/transactions_controller.rb:7:in `index'
+  [1m[36mTransaction Load (0.1ms)[0m  [1m[34mSELECT "transactions"."points" FROM "transactions"[0m
+  ↳ app/controllers/transactions_controller.rb:7:in `index'
+Completed 200 OK in 20ms (Views: 18.3ms | ActiveRecord: 1.3ms | Allocations: 6104)
+
+
+Started GET "/transactions" for ::1 at 2021-09-27 19:38:22 -0400
+Processing by TransactionsController#index as */*
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/transactions_controller.rb:7:in `index'
+  [1m[36mTransaction Load (0.1ms)[0m  [1m[34mSELECT "transactions"."id", "transactions"."points" FROM "transactions"[0m
+  ↳ app/controllers/transactions_controller.rb:7:in `index'
+Completed 200 OK in 21ms (Views: 16.6ms | ActiveRecord: 2.7ms | Allocations: 6224)
+
+
+Started POST "/transactions" for ::1 at 2021-09-27 19:38:58 -0400
+Processing by TransactionsController#create as */*
+  Parameters: {"transactions"=>{"payer"=>"DANNON", "points"=>1000, "timestamp"=>"2020-11-02T14:00:00Z"}, "transaction"=>{}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/transactions_controller.rb:3:in `create'
+  [1m[36mTransaction Create (0.5ms)[0m  [1m[32mINSERT INTO "transactions" ("payer", "points", "timestamp", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["payer", "DANNON"], ["points", 1000], ["timestamp", "2020-11-02 14:00:00"], ["created_at", "2021-09-27 23:38:58.778972"], ["updated_at", "2021-09-27 23:38:58.778972"]]
+  ↳ app/controllers/transactions_controller.rb:3:in `create'
+  [1m[36mTRANSACTION (31.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/transactions_controller.rb:3:in `create'
+Completed 200 OK in 48ms (Views: 0.5ms | ActiveRecord: 31.9ms | Allocations: 4830)
+
+
+Started GET "/transactions" for ::1 at 2021-09-27 19:39:04 -0400
+Processing by TransactionsController#index as */*
+  [1m[36mTransaction Load (0.4ms)[0m  [1m[34mSELECT "transactions"."id", "transactions"."points" FROM "transactions"[0m
+  ↳ app/controllers/transactions_controller.rb:7:in `index'
+Completed 200 OK in 5ms (Views: 3.8ms | ActiveRecord: 0.4ms | Allocations: 1097)
+
+
+Started GET "/transactions" for ::1 at 2021-09-27 19:39:51 -0400
+Processing by TransactionsController#index as */*
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/transactions_controller.rb:7:in `index'
+  [1m[36mTransaction Load (0.7ms)[0m  [1m[34mSELECT "transactions"."payer", SUM as points FROM "transactions"[0m
+  ↳ app/controllers/transactions_controller.rb:7:in `index'
+Completed 500 Internal Server Error in 10ms (ActiveRecord: 1.6ms | Allocations: 3716)
+
+
+  
+ActiveRecord::StatementInvalid (SQLite3::SQLException: no such column: SUM):
+  
+app/controllers/transactions_controller.rb:7:in `index'
+Started GET "/transactions" for ::1 at 2021-09-27 19:40:31 -0400
+Processing by TransactionsController#index as */*
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/transactions_controller.rb:7:in `index'
+  [1m[36mTransaction Load (0.2ms)[0m  [1m[34mSELECT "transactions"."payer", SUM(points) as points FROM "transactions"[0m
+  ↳ app/controllers/transactions_controller.rb:7:in `index'
+Completed 200 OK in 18ms (Views: 14.7ms | ActiveRecord: 1.6ms | Allocations: 5964)
+
+
+Started GET "/transactions" for ::1 at 2021-09-27 19:41:09 -0400
+Processing by TransactionsController#index as */*
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/transactions_controller.rb:7:in `index'
+  [1m[36mTransaction Load (0.1ms)[0m  [1m[34mSELECT "transactions"."payer", SUM(points) as points FROM "transactions" GROUP BY "transactions"."payer"[0m
+  ↳ app/controllers/transactions_controller.rb:7:in `index'
+Completed 200 OK in 18ms (Views: 16.6ms | ActiveRecord: 1.8ms | Allocations: 6069)
+
+
+  [1m[36mTransaction Load (0.3ms)[0m  [1m[34mSELECT "transactions".* FROM "transactions" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mTransaction Load (0.5ms)[0m  [1m[34mSELECT "transactions".* FROM "transactions" /* loading for inspect */ ORDER BY "transactions"."timestamp" ASC LIMIT ?[0m  [["LIMIT", 11]]
+Started POST "/transactions/spend" for ::1 at 2021-09-27 22:07:14 -0400
+  [1m[35m (2.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+SyntaxError (/home/anug/FetchPoints/app/controllers/transactions_controller.rb:33: syntax error, unexpected end-of-input, expecting keyword_end):
+  
+app/controllers/transactions_controller.rb:33: syntax error, unexpected end-of-input, expecting keyword_end
+app/controllers/transactions_controller.rb:33: syntax error, unexpected end-of-input, expecting keyword_end
+app/controllers/transactions_controller.rb:33: syntax error, unexpected end-of-input, expecting keyword_end
+Started POST "/transactions/spend" for ::1 at 2021-09-27 22:09:05 -0400
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by TransactionsController#spend as */*
+  Parameters: {"points"=>5000, "transaction"=>{"points"=>5000}}
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "transactions"."points" FROM "transactions"[0m
+  ↳ app/controllers/transactions_controller.rb:13:in `spend'
+  [1m[36mTransaction Load (0.5ms)[0m  [1m[34mSELECT "transactions".* FROM "transactions" ORDER BY "transactions"."timestamp" ASC[0m
+  ↳ app/controllers/transactions_controller.rb:14:in `spend'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/transactions_controller.rb:18:in `block in spend'
+  [1m[36mTransaction Destroy (7.6ms)[0m  [1m[31mDELETE FROM "transactions" WHERE "transactions"."id" = ?[0m  [["id", 1]]
+  ↳ app/controllers/transactions_controller.rb:18:in `block in spend'
+  [1m[36mTRANSACTION (40.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/transactions_controller.rb:18:in `block in spend'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/transactions_controller.rb:18:in `block in spend'
+  [1m[36mTransaction Destroy (1.8ms)[0m  [1m[31mDELETE FROM "transactions" WHERE "transactions"."id" = ?[0m  [["id", 4]]
+  ↳ app/controllers/transactions_controller.rb:18:in `block in spend'
+  [1m[36mTRANSACTION (37.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/transactions_controller.rb:18:in `block in spend'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/transactions_controller.rb:18:in `block in spend'
+  [1m[36mTransaction Destroy (0.7ms)[0m  [1m[31mDELETE FROM "transactions" WHERE "transactions"."id" = ?[0m  [["id", 3]]
+  ↳ app/controllers/transactions_controller.rb:18:in `block in spend'
+  [1m[36mTRANSACTION (62.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/transactions_controller.rb:18:in `block in spend'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/transactions_controller.rb:21:in `block in spend'
+  [1m[36mTransaction Update (3.6ms)[0m  [1m[33mUPDATE "transactions" SET "points" = ?, "updated_at" = ? WHERE "transactions"."id" = ?[0m  [["points", 5300], ["updated_at", "2021-09-28 02:09:05.565017"], ["id", 2]]
+  ↳ app/controllers/transactions_controller.rb:21:in `block in spend'
+  [1m[36mTRANSACTION (68.9ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/transactions_controller.rb:21:in `block in spend'
+Completed 200 OK in 371ms (Views: 1.0ms | ActiveRecord: 227.1ms | Allocations: 25703)
+
+
+Started GET "/transactions" for ::1 at 2021-09-27 22:11:46 -0400
+Processing by TransactionsController#index as */*
+  [1m[36mTransaction Load (0.4ms)[0m  [1m[34mSELECT "transactions"."payer", SUM(points) as points FROM "transactions" GROUP BY "transactions"."payer"[0m
+  ↳ app/controllers/transactions_controller.rb:7:in `index'
+Completed 200 OK in 6ms (Views: 4.3ms | ActiveRecord: 0.4ms | Allocations: 1081)
+
+

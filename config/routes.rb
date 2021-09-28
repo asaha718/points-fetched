@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
-  resources :transactions, only: [:create, :index]
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :transactions, only: [:create, :index] do
+    collection do 
+      post :spend
+    end    
+  end
+
 end
