@@ -4,7 +4,15 @@ class TransactionsController < ApplicationController
   end
 
   def index
-    render json: Transaction.select(:payer, "SUM(points) as points").group(:payer)
+    group_of_payers= Transaction.select(:payer, "SUM(points) as points").group(:payer); 
+
+    results={}
+
+    group_of_payers.each do |group|
+      results[group.payer] = group.points 
+    end
+
+    render json: results
   end
 
   def spend
@@ -22,7 +30,13 @@ class TransactionsController < ApplicationController
           break
         end
       end
-      render json: spent_points
+
+      result=[]; 
+      
+      spent_points.each do |key, value|
+        result << {"payer" => key , "points" => value}
+      end
+      render json: result
     end
   end
   
